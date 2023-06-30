@@ -14,10 +14,49 @@ function writePassword() {
 generateBtn.addEventListener("click", writePassword);
 
 
-
-
 function generatePassword(){
 
-}
+    //runs prompt to set charCount until the requirement is met
+    do{
+      charCount = prompt("How many characters would you like your password to contain?\nNote: your password must be between 8 and 128 characters long.")
+      if(charCount < 8 || charCount > 128){
+        alert("Invalid Response")
+      }
+      if(!charCount){
+        return
+      }
+    } while(charCount < 8 || charCount > 128)
+  
+    //confirms the character count in the console
+    console.log(charCount)
 
-generatePassword();
+    //converts string type to number type
+    charCount = Number(charCount)
+
+    //determines if the user wants to use uppercase letters
+    useUpper = confirm("Would you like to use Uppercase letters?")
+    if(useUpper){
+      
+    } 
+    
+
+
+
+    //needs to return a value for the writePassword function
+    return charCount + charCount
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+}
