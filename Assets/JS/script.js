@@ -75,8 +75,6 @@ function generatePassword(){
       newPassword = newPassword.concat(randomChar[Math.floor(Math.random() * randomChar.length)])
     }while (newPassword.length < charCount)
 
-    console.log(newPassword.includes(randomChar.some))
-
     //needs to return a value for the writePassword function
     return newPassword
 }
