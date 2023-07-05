@@ -11,7 +11,7 @@ let useUpper
 let useLower    
 let useNumber   
 let useSpecial 
-let newPassword = [];
+let newPassword = "";
 
 // Write password to the #password input
 function writePassword() {
@@ -31,82 +31,52 @@ function generatePassword(){
     //runs prompt to set charCount until the requirement is met
     do{
       charCount = prompt("How many characters would you like your password to contain?\nNote: your password must be between 8 and 128 characters long.")
-      if(charCount < 8 || charCount > 128){
-        alert("Invalid Response")
-      }
       if(!charCount){
         return
       }
-    } while(charCount < 8 || charCount > 128)
+      if(charCount < 8 || charCount > 128){
+        alert("Invalid Response\nPlease follow the noted requirements")
+      }
+    }while(charCount < 8 || charCount > 128)
 
     //converts string type to number type
     charCount = Number(charCount)
 
+    //determines if the user wants to use uppercase, lowercase, number or special characters
     do{
-      //determines if the user wants to use uppercase, lowercase, number or special characters
-      useUpper   = confirm("Would you like to use Uppercase letters?");
-      useLower   = confirm("Would you like to use Lowercase letters?");
-      useNumber  = confirm("Would you like to use Numbers?")
-      useSpecial = confirm("Would you like to use Special Characters?")
+      useUpper   = confirm("Would you like to use Uppercase letters?\nPress 'OK' for Yes or 'Cancel' for No");
+      useLower   = confirm("Would you like to use Lowercase letters?\nPress 'OK' for Yes or 'Cancel' for No");
+      useNumber  = confirm("Would you like to use Numbers?\nPress 'OK' for Yes or 'Cancel' for No");
+      useSpecial = confirm("Would you like to use Special Characters?\nPress 'OK' for Yes or 'Cancel' for No")
 
-      if(useUpper == false && useLower == false && useNumber == false && useSpecial == false){
+      if(!useUpper && !useLower && !useNumber && !useSpecial){
         alert("You must confirm at least one of these conditions")
       }
     } while(useUpper == false && useLower == false && useNumber == false && useSpecial == false)
 
-
-    // adds all the characters of the password together into one string
-    function concatPassword(){
-
-      function useUpperChar(){
-        if(useUpper == true){
-          let newUpper = upperLetter[Math.floor(Math.random() * upperLetter.length)]
-          newPassword.push(newUpper)
-        }
-        else{
-          charCount
-        }
-      }
-  
-      function useLowerChar(){
-        if(useLower == true){
-          let newLower = lowerLetter[Math.floor(Math.random() * lowerLetter.length)]
-          newPassword.push(newLower)
-        }else{
-          charCount
-        }
-      }
-  
-      function useNumberChar(){
-        if(useNumber == true){
-          let newNumber = numberChar[Math.floor(Math.random() * numberChar.length)]
-          newPassword.push(newNumber)
-        }else{
-          charCount
-        }
-      }
-  
-      function useSpecialChar(){
-        if(useSpecial == true){
-          let newSpecial = specialChar[Math.floor(Math.random() * specialChar.length)]
-          newPassword.push(newSpecial)
-        }else{
-          charCount
-        }
-      }
-
-      
-      do{
-
-        let randomChar = [useUpperChar(), useLowerChar(), ,useNumberChar(), useSpecialChar()];
-        
-        newPassword.push(randomChar[Math.floor(Math.random() * randomChar.length)])
-
-      }while(newPassword.length < charCount)
+    let confirmChar = [useUpper, useLower, useNumber, useSpecial]
+    let characters  = [upperLetter, lowerLetter, numberChar, specialChar]
     
-    return newPassword.toString().replaceAll(",", "")
-  }
+    
+    //Guarantees at least one type of each selected character is in the password
+    for(let i = 0; i < characters.length; i ++){
+      if(confirmChar[i]){
+        newPassword = newPassword.concat((characters[i][Math.floor(Math.random() * characters[i].length)]))
+      }
+    }
+    //Takes a random index from each character array and then selects a random index from the new array to concat to the newPassword variable
+    do{
+      var randomChar = []
+      for(var j = 0; j < characters.length; j++){
+        if(confirmChar[j]){
+          randomChar.push(characters[j][Math.floor(Math.random() * characters[j].length)]);
+        }
+      } 
+      newPassword = newPassword.concat(randomChar[Math.floor(Math.random() * randomChar.length)])
+    }while (newPassword.length < charCount)
+
+    console.log(newPassword.includes(randomChar.some))
 
     //needs to return a value for the writePassword function
-    return String(concatPassword())
+    return newPassword
 }
