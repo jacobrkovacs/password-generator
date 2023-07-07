@@ -24,10 +24,10 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", resetPassword)
 
 
 function generatePassword(){
-
     //runs prompt to set charCount until the requirement is met
     do{
       charCount = prompt("How many characters would you like your password to contain?\nNote: your password must be between 8 and 128 characters long.")
@@ -74,7 +74,10 @@ function generatePassword(){
       } 
       newPassword = newPassword.concat(randomChar[Math.floor(Math.random() * randomChar.length)])
     }while (newPassword.length < charCount)
-
     //needs to return a value for the writePassword function
     return newPassword
+}
+
+function resetPassword(){
+  newPassword  = ""
 }
